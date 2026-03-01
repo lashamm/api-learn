@@ -1,32 +1,46 @@
-﻿using api_learn.Models;
+﻿using api_learn.Data;
+using api_learn.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api_learn.Services
 {
     public class BookService : IBookService
     {
-        public Task CreateAsync(Book book)
+        private readonly BookStoreContext context;
+        public BookService(BookStoreContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task CreateAsync(Book book)
+        {
+            await context.Books.AddAsync(book);
+            await context.SaveChangesAsync();
         }
 
-        public Task DeleteBookByIdAsync(int id)
+        public async Task DeleteBookByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            await context.Books.Where(b => b.Id == id).ExecuteDeleteAsync();
+            await context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Book>> GetBookAsync()
+        public async Task<IEnumerable<Book>> GetBookAsync()
         {
-            throw new NotImplementedException();
+            await context.Books.Include(b => b.Author).LoadAsync();
+            return await context.Books.ToListAsync();
         }
 
-        public Task<Book?> GetBookByIdAsync(int id)
+        public async Task<Book?> GetBookByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            await context.Books.Include(b => b.Author).Where(b => b.Id == id).LoadAsync();
+            return await context.Books.Where(b => b.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task UpdateBookAsync(int id, Book newBook)
+        public async Task UpdateBookAsync(int id, Book newBook)
         {
-            throw new NotImplementedException();
+            await context.Books.Where(b => b.Id == id).ExecuteUpdateAsync(b => b
+                .SetProperty(b => b.Title, newBook.Title)
+                .SetProperty(b => b.Description, newBook.Description)
+            );
         }
     }
 }

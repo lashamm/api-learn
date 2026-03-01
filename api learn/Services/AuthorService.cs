@@ -12,29 +12,36 @@ namespace api_learn.Services
             this.context = context;
         }
 
-        Task IAuthorService.CreateAsync(Author author)
+        public async Task CreateAsync(Author author)
         {
-            throw new NotImplementedException();
+            await context.authors.AddAsync(author);
+            await context.SaveChangesAsync();
         }
 
-        Task IAuthorService.DeleteAuthorByIdAsync(int id)
+        public async Task DeleteAuthorByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            await context.authors.Where(a => a.Id == id).ExecuteDeleteAsync();
+            await context.SaveChangesAsync();
         }
 
-        Task<IEnumerable<Author>> IAuthorService.GetAuthorAsync()
+        public async Task<IEnumerable<Author>> GetAuthorAsync()
         {
-            throw new NotImplementedException();
+            await context.authors.LoadAsync();
+            return context.authors;
         }
 
-        Task<Author?> IAuthorService.GetAuthorByIdAsync(int id)
+        public async Task<Author?> GetAuthorByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            await context.authors.Where(a => a.Id == id).LoadAsync();
+            return await context.authors.Where(a => a.Id == id).FirstOrDefaultAsync();
         }
 
-        Task IAuthorService.UpdateAuthorAsync(int id, Author newAuthor)
+        public async Task UpdateAuthorAsync(int id, Author newAuthor)
         {
-            throw new NotImplementedException();
+            await context.authors.Where(a => a.Id == id).ExecuteUpdateAsync(a => a
+                .SetProperty(a => a.Name, newAuthor.Name)
+                .SetProperty(a => a.Bio, newAuthor.Bio)
+            );
         }
     }
 }
