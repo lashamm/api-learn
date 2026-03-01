@@ -48,7 +48,7 @@ namespace api_learn.Models
         [Required]
         [Column("publication")]
         [StringLength(300, MinimumLength = 1)]
-        public string Publication { get; set; }
+        public string Publication { get; set; } = string.Empty;
         [Column("quantity")]
         [Range(0, 500)]
         public int Quantity { get; set; }
