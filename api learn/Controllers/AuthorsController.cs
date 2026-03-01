@@ -1,6 +1,5 @@
 ﻿using api_learn.Data;
 using api_learn.Models;
-using api_learn.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,27 +7,25 @@ namespace api_learn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController(BookStoreContext bookStoreContext) : ControllerBase
+    public class AuthorsController(BookStoreContext bookStoreContext) : ControllerBase
     {
         private readonly BookStoreContext context = bookStoreContext;
 
-        [HttpGet("GetBook")]
-        public IEnumerable<Book> GetBook()
+        [HttpGet("Author")]
+        public IEnumerable<Author> GetAuthor()
         {
             return [];
         }
 
         [HttpGet("GetBookById/{id}")]
-        public ActionResult<Book> GetBookById(int id)
+        public ActionResult GetBookById(int id)
         {
-            Book? book = context.Books.Find(id);
-
+            var book = context.Books.Find(id);
             if (book == null)
             {
                 return NotFound();
             }
-
             return Ok(book);
         }
-        }
+    }
 }
