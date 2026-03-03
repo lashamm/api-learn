@@ -1,5 +1,5 @@
 ﻿using api_learn.Data;
-using api_learn.Models;
+using api_learn.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

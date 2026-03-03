@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace api_learn.Models
+namespace api_learn.Models.Entities
 {
     [Table("books")]
     public class Book

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using api_learn.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace api_learn.Data
 {
@@ -10,7 +11,7 @@ namespace api_learn.Data
         }
         public BookStoreContext() { }
 
-        public DbSet<Models.Book> Books { get; set; }
-        public DbSet<Models.Author> Authors { get; set; } 
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; } 
     }
 }

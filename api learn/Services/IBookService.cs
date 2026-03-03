@@ -1,4 +1,4 @@
-﻿using api_learn.Models;
+﻿using api_learn.Models.Entities;
 
 namespace api_learn.Services
 {
