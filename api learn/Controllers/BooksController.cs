@@ -53,12 +53,12 @@ namespace api_learn.Controllers
                 IsOriginal = book.IsOriginal,
                 
             };
-            await context.Books.AddAsync(book);
+            await context.Books.AddAsync(newBook);
             await  context.SaveChangesAsync();
 
             var url = Url.Action(nameof(GetBookById));
             //return CreatedAtAction(nameof(GetBookById), new { id = book.Id }, book);
-            return Created(nameof(GetBookById), new { id = book.Id });
+            return Created(nameof(GetBookById), new { id = newBook.Id });
         }
 
         [HttpDelete("DeleteBook")]
