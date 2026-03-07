@@ -45,8 +45,7 @@ namespace api_learn.Controllers
         }
 
             [HttpDelete("DeleteAuthor")]
-        [HttpDelete("DeleteBook")]
-        public ActionResult<Book> DeleteBook(Author author)
+        public ActionResult<Book> DeleteAuthor(Author author)
         {
             var bookid = context.Find<Author>(author.Id);
             context.Authors.Remove(bookid);
